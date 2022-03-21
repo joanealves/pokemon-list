@@ -1,5 +1,5 @@
 import React,{ useEffect,useState } from 'react';
-import { getAllPokemon } from '../../services/index'
+import { getAllPokemon, getPokemon } from '../../services/index'
 
 const List = () => {
     const [pokemonsData,setPokemonsData] = useState([]);
@@ -18,9 +18,21 @@ const List = () => {
         console.log(allPokemon) 
         setNextUrl(allPokemon.next)
         setPrevUrl(allPokemon.previous)
+
+        await loadingPokemon(allPokemon.results)
         setLoading(false)
     }
 
+    const loadingPokemon = async (data) => {
+        let _pokemonData = await Promise.all(data.map(async urlPokemon => {
+            let pokemonRecord = await getPokemon(urlPokemon.url)
+            return pokemonRecord
+        })
+        )
+
+        setPokemonsData(_pokemonData)
+    }
+    console.log(pokemonsData);
     return (
         <div>
             List
