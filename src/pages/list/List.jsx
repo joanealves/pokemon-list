@@ -1,4 +1,5 @@
 import React,{ useEffect,useState } from 'react';
+import Cards from '../../components/cards/Cards';
 import { getAllPokemon, getPokemon } from '../../services/index'
 
 const List = () => {
@@ -15,7 +16,6 @@ const List = () => {
 
     const fetchData = async () => {
         const allPokemon = await  getAllPokemon()
-        console.log(allPokemon) 
         setNextUrl(allPokemon.next)
         setPrevUrl(allPokemon.previous)
 
@@ -32,17 +32,17 @@ const List = () => {
 
         setPokemonsData(_pokemonData)
     }
-    console.log(pokemonsData);
     return (
         <div>
             List
             <input 
                 type="search"
-                value="Buscar"
+                value={search}
+                placeholder='Buscar'
                 onChange={(ev)=>setSearch(ev.target.value)}
             />    
             {loading ? <h1>Loadding...</h1> : (
-                <h1> Data is fetched </h1>
+               <Cards pokemonsData={pokemonsData}/>
             )}
 
         </div>
