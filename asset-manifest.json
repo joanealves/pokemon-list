@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/pokemon-list/static/js/main.7a0120c8.js",
+    "static/media/logo.png": "/pokemon-list/static/media/logo.54208d6b45241d5c72c4.png",
+    "index.html": "/pokemon-list/index.html",
+    "static/media/close.svg": "/pokemon-list/static/media/close.f62862c6571367515ce17c7b4e77a1fc.svg",
+    "main.7a0120c8.js.map": "/pokemon-list/static/js/main.7a0120c8.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.7a0120c8.js"
+  ]
+}
