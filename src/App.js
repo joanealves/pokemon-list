@@ -9,25 +9,25 @@ import {
   Link,
   Redirect
 } from 'react-router-dom';
+import { GlobalStyle } from './presentation/styles/global.styles';
 
 export function App() {
   return (
     <div className="App">
-       <Router>
-          <h1>
-            <Link to="/pokemons/list">Pokemon list</Link>
-          </h1>        
-          <Switch>
-            <Route path="/pokemons/list" component={List} />
-            <Route
-              path="/pokemons/:name"
-              component={View}
-            />
-            <Route path="/" exact>
-              <Redirect to="/pokemons/list" />
-            </Route>
-          </Switch>
-        </Router>
+      <Router>
+        <Link to="/pokemons/list">Pokemon list</Link>
+        <Switch>
+          <Route path="/pokemons/list" component={List} />
+          <Route
+            path="/pokemons/:name"
+            component={View}
+          />
+          <Route path="/" exact>
+            <Redirect to="/pokemons/list" />
+          </Route>
+        </Switch>
+      </Router>
+      <GlobalStyle />
     </div>
   );
 }

@@ -4,6 +4,8 @@ import { getAllPokemon, getPokemon } from '../../services/index'
 
 import { useHistory } from "react-router-dom";
 
+import * as S from '../../presentation/styles/global.styles'
+
 const List = () => {
   let history = useHistory();
   const [pokemonsData, setPokemonsData] = useState([]);
@@ -60,19 +62,22 @@ const List = () => {
 
   return (
     <div>
+      <S.FlexWrapper gap="16px">
+        <input
+          type="text"
+          value={search}
+          placeholder='Digite aqui o nome de um pokemon'
+          onChange={(ev) => setSearch(ev.target.value)}
+        />
+        <S.Button
+          onClick={handleClick}
+          disabled={search === ''}
+        >
+          Buscar
+        </S.Button>
 
-      <input
-        type="text"
-        value={search}
-        placeholder='Digite aqui o nome de um pokemon'
-        onChange={(ev) => setSearch(ev.target.value)}
-      />
-      <button
-        onClick={handleClick}
-        disabled={search === ''}
-      >
-        Buscar
-      </button>
+      </S.FlexWrapper>
+
 
       {loading ? <h1>Loadding...</h1> : (
         <Cards pokemonsData={pokemonsData} />
