@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
-import { HeaderContainer } from './Header.styles';
+import { HeaderContainer, LinkTitle } from './Header.styles';
+import logo from '../../assets/logo.png'
 
 const Header = () => {
     return (
         <HeaderContainer>
-             <Link to="/pokemons/list">Pokemon list</Link>
+            <LinkTitle to="/pokemons/list">
+                Pokemon list
+                <img src={logo} alt='Logo desenho Pokemon' />
+            </LinkTitle>
         </HeaderContainer>
     );
 }

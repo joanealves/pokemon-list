@@ -16,7 +16,6 @@ export const StatusContainer = styled.div`
 
     }
 `
-
 export const Status = styled.div`   
     display: flex;
     justify-content: space-between;
@@ -26,4 +25,7 @@ export const Title = styled.h3`
     background: var(--text-title);
     height: 30px ;
     padding: 5px ;
+`
+export const ButtonContainer = styled.div`
+    text-align: end;
 `

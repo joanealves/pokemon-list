@@ -15,12 +15,14 @@ const InfoModal = ({
             isOpen={isOpen}
             onRequestClose={onRequestClose}
         >
+            <S.ButtonContainer>
             <button
-
-                type="button" onClick={onRequestClose}
+                type="button" 
+                onClick={onRequestClose}
             >
                 <img src={closeImg} alt="Fechar modal" />
             </button>
+            </S.ButtonContainer>
             <div>
                 <S.HeaderContainer>
                     <h1>{pokemonInfoModal?.name}</h1>
