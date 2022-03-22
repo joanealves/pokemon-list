@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
     transition: 0.2 ease;
 
     :hover{
-        background: var(--green2);
+        background: var(--red);
         border: solid 2px var(--#e1e1e1);
         cursor: pointer;
     }
