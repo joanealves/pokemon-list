@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useAppDispatch } from '../../data/store'
+import { setInfoPokemon } from './state/PokemonSlice'
 import Cards from '../../components/cards/Cards';
 import { getAllPokemon, getPokemon } from '../../services/index'
 
 import { useHistory } from "react-router-dom";
 
 import * as S from '../../presentation/styles/global.styles'
+import { Search, Input } from './List.styles'
+
 
 const List = () => {
+  const dispatch = useAppDispatch()
   let history = useHistory();
   const [pokemonsData, setPokemonsData] = useState([]);
   const [nextUrl, setNextUrl] = useState('');
@@ -43,6 +48,7 @@ const List = () => {
     const pokemon = filteredSearchPokemon()
 
     let pokemonRecord = await getPokemon(`${initialUrl}/${pokemon[0].id}/`)
+    dispatch(setInfoPokemon(pokemonRecord))
 
     history.push(`/pokemons/${search}`)
   }
@@ -60,10 +66,24 @@ const List = () => {
     return filtered
   }
 
+  const handleClickPreview = async () => {
+    const pokemon = filteredSearchPokemon()
+
+    let pokemonRecord = await getPokemon(`${initialUrl}/${pokemon[0].id}/`)
+    dispatch(setInfoPokemon(pokemonRecord))
+
+    history.push(`/pokemons/${search}`)
+  }
+
+  const handleClickNext = async () => {
+    let infoNextPage = await getPokemon(nextUrl)
+    console.log(infoNextPage)
+  }
+
   return (
     <div>
-      <S.FlexWrapper gap="16px">
-        <input
+      <Search>
+        <Input
           type="text"
           value={search}
           placeholder='Digite aqui o nome de um pokemon'
@@ -76,7 +96,17 @@ const List = () => {
           Buscar
         </S.Button>
 
-      </S.FlexWrapper>
+        <div>
+          <S.Button onClick={handleClickPreview}>
+            {`<`}
+          </S.Button>
+          <S.Button onClick={handleClickNext}>
+            {`>`}
+          </S.Button>
+        </div>
+
+      </Search>
+
 
 
       {loading ? <h1>Loadding...</h1> : (

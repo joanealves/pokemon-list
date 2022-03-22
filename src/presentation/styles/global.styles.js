@@ -91,7 +91,7 @@ const buildTextCss = props => {
     color: var(--shape);
     border-radius: 4px;
     font-weight: bold;
-    height: 32px;
+    height: 36px;
     cursor: pointer;
     padding: 0 20px;
     transition: all 0.2 ease;
