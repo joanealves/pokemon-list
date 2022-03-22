@@ -30,6 +30,9 @@ export function App() {
             <Route path="/" exact>
               <Redirect to="/pokemons/list" />
             </Route>
+            <Route path="/pokemon-list" exact>
+              <Redirect to="/pokemons/list" />
+            </Route>
           </Switch>
         </Router>
         <GlobalStyle />
