@@ -67,17 +67,21 @@ const List = () => {
   }
 
   const handleClickPreview = async () => {
-    const pokemon = filteredSearchPokemon()
+    let infoNextPage = await getPokemon(nextUrl)
+    setNextUrl(infoNextPage.next)
+    setPrevUrl(infoNextPage.previous)
 
-    let pokemonRecord = await getPokemon(`${initialUrl}/${pokemon[0].id}/`)
-    dispatch(setInfoPokemon(pokemonRecord))
-
-    history.push(`/pokemons/${search}`)
+    await loadingPokemon(infoNextPage.results)
+    setLoading(false)
   }
 
   const handleClickNext = async () => {
     let infoNextPage = await getPokemon(nextUrl)
-    console.log(infoNextPage)
+    setNextUrl(infoNextPage.next)
+    setPrevUrl(infoNextPage.previous)
+
+    await loadingPokemon(infoNextPage.results)
+    setLoading(false)
   }
 
   return (
@@ -97,7 +101,10 @@ const List = () => {
         </S.Button>
 
         <div>
-          <S.Button onClick={handleClickPreview}>
+          <S.Button 
+          onClick={handleClickPreview}
+          disabled={prevUrl === null}
+          >
             {`<`}
           </S.Button>
           <S.Button onClick={handleClickNext}>
