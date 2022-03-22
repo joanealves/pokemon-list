@@ -20,6 +20,7 @@ const List = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [pokemonInfoModal, setPokemonInfoModal] = useState([]);
   const initialUrl = 'https://pokeapi.co/api/v2/pokemon';
 
   useEffect(() => {
@@ -114,10 +115,19 @@ const List = () => {
         </div>
 
       </Search>
-      <InfoModal  isOpen={isOpenModal} onRequestClose={() => setIsOpenModal(false)}/>
+      <InfoModal 
+      isOpen={isOpenModal} 
+      onRequestClose={() => 
+      setIsOpenModal(false)}
+      pokemonInfoModal={pokemonInfoModal}
+      />
 
       {loading ? <h1>Loadding...</h1> : (
-        <Cards pokemonsData={pokemonsData} setIsOpenModal={setIsOpenModal} />
+        <Cards 
+        pokemonsData={pokemonsData}
+        setIsOpenModal={setIsOpenModal} 
+        setPokemonInfoModal={setPokemonInfoModal}
+        />
       )}
 
     </div>

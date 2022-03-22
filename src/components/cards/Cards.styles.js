@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     background: var(--card);
     border-radius: 6px;
     padding: 10px;
@@ -19,4 +19,11 @@ export const Wrapper = styled.div`
         cursor: pointer;
     }
 
+`
+export const ContainerType = styled.div`
+    background: var(--card);
+    border-radius: 2px;
+    border: 1px solid var(--text-body);
+    width: -webkit-fill-available;
+    padding: 5px;
 `
