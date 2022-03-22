@@ -1,52 +1,85 @@
-import React,{ useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cards from '../../components/cards/Cards';
 import { getAllPokemon, getPokemon } from '../../services/index'
 
+import { useHistory } from "react-router-dom";
+
 const List = () => {
-    const [pokemonsData,setPokemonsData] = useState([]);
-    const [nextUrl, setNextUrl] = useState('');
-    const [prevUrl, setPrevUrl] = useState('');
-    const [loading, setLoading] = useState(true);
-    const initialUrl = 'https://pokeapi.co/api/v2/pokemon';
-    const [search, setSearch] = useState('');
+  let history = useHistory();
+  const [pokemonsData, setPokemonsData] = useState([]);
+  const [nextUrl, setNextUrl] = useState('');
+  const [prevUrl, setPrevUrl] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
 
-    useEffect(() => {
-        fetchData()
-    }, [])
+  const initialUrl = 'https://pokeapi.co/api/v2/pokemon';
 
-    const fetchData = async () => {
-        const allPokemon = await  getAllPokemon()
-        setNextUrl(allPokemon.next)
-        setPrevUrl(allPokemon.previous)
+  useEffect(() => {
+    fetchData()
+  }, [])
 
-        await loadingPokemon(allPokemon.results)
-        setLoading(false)
-    }
+  const fetchData = async () => {
+    const allPokemon = await getAllPokemon()
+    setNextUrl(allPokemon.next)
+    setPrevUrl(allPokemon.previous)
 
-    const loadingPokemon = async (data) => {
-        let _pokemonData = await Promise.all(data.map(async urlPokemon => {
-            let pokemonRecord = await getPokemon(urlPokemon.url)
-            return pokemonRecord
-        })
-        )
+    await loadingPokemon(allPokemon.results)
+    setLoading(false)
+  }
 
-        setPokemonsData(_pokemonData)
-    }
-    return (
-        <div>
-            List
-            <input 
-                type="search"
-                value={search}
-                placeholder='Buscar'
-                onChange={(ev)=>setSearch(ev.target.value)}
-            />    
-            {loading ? <h1>Loadding...</h1> : (
-               <Cards pokemonsData={pokemonsData}/>
-            )}
+  const loadingPokemon = async (data) => {
+    let _pokemonData = await Promise.all(data.map(async urlPokemon => {
+      let pokemonRecord = await getPokemon(urlPokemon.url)
+      return pokemonRecord
+    })
+    )
 
-        </div>
-    );
+    setPokemonsData(_pokemonData)
+  }
+
+  const handleClick = async () => {
+    const pokemon = filteredSearchPokemon()
+
+    let pokemonRecord = await getPokemon(`${initialUrl}/${pokemon[0].id}/`)
+
+    history.push(`/pokemons/${search}`)
+  }
+
+  const filteredSearchPokemon = () => {
+    const isSearch = search && search.toLowerCase();
+
+    const filtered =
+      !pokemonsData || !isSearch
+        ? pokemonsData
+        : pokemonsData.filter(({ name }) =>
+          name.toLowerCase() === isSearch
+        );
+
+    return filtered
+  }
+
+  return (
+    <div>
+
+      <input
+        type="text"
+        value={search}
+        placeholder='Digite aqui o nome de um pokemon'
+        onChange={(ev) => setSearch(ev.target.value)}
+      />
+      <button
+        onClick={handleClick}
+        disabled={search === ''}
+      >
+        Buscar
+      </button>
+
+      {loading ? <h1>Loadding...</h1> : (
+        <Cards pokemonsData={pokemonsData} />
+      )}
+
+    </div>
+  );
 }
 
 export default List;

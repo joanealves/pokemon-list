@@ -6,7 +6,15 @@ const Cards = ({pokemonsData}) => {
             {pokemonsData.map(pokemon => {
                 return (
                     <div key={pokemon.name}>
-                        {pokemon.name}
+                       <p> {pokemon.name}</p>
+                       <div>
+                           {pokemon.types.map(item => {
+                               return (
+
+                                   <p>{item.type.name}</p>
+                               )
+                           })}
+                       </div>
                     </div>
                 )
             })}
