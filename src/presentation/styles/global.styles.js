@@ -6,12 +6,13 @@ export const GlobalStyle = createGlobalStyle`
     :root {
         --background: #f0f2f5;
         --red: #E52E4D;
-        --green:#33CC95;
+        --gold1:#ff9d01;
+        --gold:#D18000;
         --blue: #5429cc;
         --blue-light: #6933ff;
         --text-title: #363f5f;
         --text-body: #969CB3;
-        --card: #d2d6e6;
+        --card:#e1e1e1;
         --shape: #FFFFFF;
     }
 
@@ -87,7 +88,7 @@ const buildTextCss = props => {
   `
   
   export const Button = styled.button`
-    background: var(--blue-light);    
+    background: var(--gold);    
     color: var(--shape);
     border-radius: 4px;
     font-weight: bold;
@@ -95,8 +96,9 @@ const buildTextCss = props => {
     cursor: pointer;
     padding: 0 20px;
     transition: all 0.2 ease;
+    
     :hover {
-      background: var(--blue);
+      background: var(--gold1);
     }
   `
   

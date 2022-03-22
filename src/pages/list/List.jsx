@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 
 import * as S from '../../presentation/styles/global.styles'
 import { Search, Input } from './List.styles'
+import InfoModal from '../../components/modal/InfoModal';
 
 
 const List = () => {
@@ -18,7 +19,7 @@ const List = () => {
   const [prevUrl, setPrevUrl] = useState('');
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const initialUrl = 'https://pokeapi.co/api/v2/pokemon';
 
   useEffect(() => {
@@ -90,7 +91,7 @@ const List = () => {
         <Input
           type="text"
           value={search}
-          placeholder='Digite aqui o nome de um pokemon'
+          placeholder='Digite o nome de um pokemon'
           onChange={(ev) => setSearch(ev.target.value)}
         />
         <S.Button
@@ -113,11 +114,10 @@ const List = () => {
         </div>
 
       </Search>
-
-
+      <InfoModal  isOpen={isOpenModal} onRequestClose={() => setIsOpenModal(false)}/>
 
       {loading ? <h1>Loadding...</h1> : (
-        <Cards pokemonsData={pokemonsData} />
+        <Cards pokemonsData={pokemonsData} setIsOpenModal={setIsOpenModal} />
       )}
 
     </div>

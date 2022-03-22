@@ -4,14 +4,15 @@ import { Provider } from 'react-redux'
 
 import List from './pages/list/List'
 import View from './pages/view/View'
+import Header from './components/header/Header';
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from 'react-router-dom';
+
 import { GlobalStyle } from './presentation/styles/global.styles';
 
 export function App() {
@@ -19,7 +20,7 @@ export function App() {
     <Provider store={store}>
       <div className="App">
         <Router>
-          <Link to="/pokemons/list">Pokemon list</Link>
+          <Header/>
           <Switch>
             <Route path="/pokemons/list" component={List} />
             <Route
