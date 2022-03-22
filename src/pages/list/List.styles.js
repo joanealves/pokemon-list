@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const Search = styled.div`
     display: flex;
     justify-content: center;
-    gap: 05px;
+    gap: 5px;
     padding: 20px;
 `
 

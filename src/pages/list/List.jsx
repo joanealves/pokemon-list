@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../data/store'
+import { useHistory } from "react-router-dom";
+
 import { setInfoPokemon } from './state/PokemonSlice'
-import Cards from '../../components/cards/Cards';
 import { getAllPokemon, getPokemon } from '../../services/index'
 
-import { useHistory } from "react-router-dom";
+import Cards from '../../components/cards/Cards';
+import InfoModal from '../../components/modal/InfoModal';
 
 import * as S from '../../presentation/styles/global.styles'
 import { Search, Input } from './List.styles'
-import InfoModal from '../../components/modal/InfoModal';
-
 
 const List = () => {
   const dispatch = useAppDispatch()
@@ -53,6 +53,12 @@ const List = () => {
     dispatch(setInfoPokemon(pokemonRecord))
 
     history.push(`/pokemons/${search}`)
+  }
+
+  const searchAll = async () => {
+    dispatch(setInfoPokemon(pokemonsData))
+
+    history.push(`/pokemons/mais-informacao`)
   }
 
   const filteredSearchPokemon = () => {
@@ -102,31 +108,38 @@ const List = () => {
           Buscar
         </S.Button>
 
-        <div>
-          <S.Button 
+        <S.Button
           onClick={handleClickPreview}
           disabled={prevUrl === null}
-          >
-            {`<`}
-          </S.Button>
-          <S.Button onClick={handleClickNext}>
-            {`>`}
-          </S.Button>
-        </div>
+        >
+          {`<`}
+        </S.Button>
+        <S.Button onClick={handleClickNext}>
+          {`>`}
+        </S.Button>
 
       </Search>
-      <InfoModal 
-      isOpen={isOpenModal} 
-      onRequestClose={() => 
-      setIsOpenModal(false)}
-      pokemonInfoModal={pokemonInfoModal}
+      <Search>
+        <S.Button
+          onClick={searchAll}
+        >
+          Listar Todos
+        </S.Button>
+
+      </Search>
+
+      <InfoModal
+        isOpen={isOpenModal}
+        onRequestClose={() =>
+          setIsOpenModal(false)}
+        pokemonInfoModal={pokemonInfoModal}
       />
 
       {loading ? <h1>Loadding...</h1> : (
-        <Cards 
-        pokemonsData={pokemonsData}
-        setIsOpenModal={setIsOpenModal} 
-        setPokemonInfoModal={setPokemonInfoModal}
+        <Cards
+          pokemonsData={pokemonsData}
+          setIsOpenModal={setIsOpenModal}
+          setPokemonInfoModal={setPokemonInfoModal}
         />
       )}
 

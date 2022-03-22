@@ -106,5 +106,6 @@ const buildTextCss = props => {
    display: flex;
    ${props => props.gap && `gap: ${props.gap}`};
    ${props => props.wrap && `flex-wrap: wrap`};
+   ${props => props.padding && `padding:20px`};
    ${props => props && setMargins(props)};
   `
